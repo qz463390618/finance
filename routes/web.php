@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//后台分组
+Route::group(['prefix'=>'admin'],function()
+{
+    //后台首页
+    Route::get('/','Admin\AdminController@index');
+    //后台登入页
+    Route::get('login','Admin\AdminController@login');
+    //执行后胎登录
+    Route::post('doLogin','Admin\AdminController@doLogin');
 });
