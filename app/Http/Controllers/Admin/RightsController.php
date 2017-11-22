@@ -18,4 +18,10 @@ class RightsController extends Controller
     {
         return view('admin.addRights');
     }
+
+    //执行添加权限
+    public function doAdd(Request $request)
+    {
+        var_dump($request -> toArray());
+    }
 }

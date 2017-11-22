@@ -23,23 +23,27 @@ Route::group(['prefix'=>'admin'],function()
     //执行后台退出登录
     Route::get('logout','Admin\AdminController@doLogout');
     //权限管理系统
-    Route::group(['prefix'=>'rbac'],function()
+    Route::group(['middleware'=>'admin.check.id','prefix'=>'rbac'],function()
     {
         //权限管理
         Route::group(['prefix'=>'rights'],function()
         {
-            Route::get('/','Admin\RightsController@index')->middleware('admin.check.id');
+            Route::get('/','Admin\RightsController@index');
+            Route::get('add','Admin\RightsController@showAdd');
+            Route::post('doAdd','Admin\RightsController@doAdd');
+            /*Route::get('/','Admin\RightsController@index')->middleware('admin.check.id');
             Route::get('add','Admin\RightsController@showAdd')->middleware('admin.check.id');
+            Route::post('doAdd','Admin\RightsController@doAdd')->middleware('admin.check.id');*/
         });
         //用户管理
         Route::group(['prefix'=>'user'],function()
         {
-            Route::get('/','Admin\UserController@index')->middleware('admin.check.id');
+            Route::get('/','Admin\UserController@index');
         });
         //角色管理
         Route::group(['prefix'=>'role'],function()
         {
-            Route::get('/','Admin\RoleController@index')->middleware('admin.check.id');
+            Route::get('/','Admin\RoleController@index');
         });
     });
 });

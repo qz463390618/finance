@@ -80,26 +80,26 @@
                         <h5>添加新的权限</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="#" method="get" class="form-horizontal" />
+                        <form action="#" method="" class="form-horizontal" >
 
-                        <div class="control-group">
-                            <label class="control-label">权限名</label>
-                            <div class="controls">
-                                <input type="text" name=""/>
-                                <span class="help-block">This is a description</span>
+                            <div class="control-group">
+                                <label class="control-label">权限名</label>
+                                <div class="controls">
+                                    <input type="text" name="" placeholder="请输入权限的简称"/>
+                                    <span class="help-block"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">权限特征</label>
-                            <div class="controls">
-                                <input type="text" />
-                                <span class="help-block"></span>
+                            <div class="control-group">
+                                <label class="control-label">权限特征</label>
+                                <div class="controls">
+                                    <input type="text" placeholder="请输入权限的路由" />
+                                    <span class="help-block"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">添加</button>
+                            </div>
                         </form>
                     </div>
                 </div>
