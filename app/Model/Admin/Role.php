@@ -14,4 +14,17 @@ class Role extends Model
     protected $fillable = ['role_id','role_name'];
     //主键
     protected $primaryKey = 'role_id';
+
+    //角色权限
+    public function rightses()
+    {
+        return $this->belongsToMany('App\Model\Admin\Rights');
+    }
+
+    //角色对应用户
+    public function users()
+    {
+        return $this -> belongsToMany('App\Model\Admin\user');
+    }
+
 }

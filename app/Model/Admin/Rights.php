@@ -14,4 +14,10 @@ class Rights extends Model
     protected $fillable = ['rights_id','rights_name','rights_mark'];
     //主键
     protected $primaryKey = 'rights_id';
+
+    //权限对应角色
+    public function roles()
+    {
+        return $this ->belongsToMany('App\Model\Admin\Role');
+    }
 }

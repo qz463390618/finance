@@ -66,8 +66,8 @@
     </div>
     <div id="breadcrumb">
         <a href="#" title="返回后台首页" class="tip-bottom"><i class="icon-home"></i> 后台</a>
-        <a href="{{url('/admin/rights')}}" class="tip-bottom">权限管理</a>
-        <a href="#" class="current">添加权限</a>
+        <a href="{{url('/admin/rbac/rights')}}" class="tip-bottom">权限管理</a>
+        <a href="#" class="current">编辑权限</a>
     </div>
     <div class="container-fluid">
         <div class="row-fluid">
@@ -77,28 +77,34 @@
 								<span class="icon">
 									<i class="icon-align-justify"></i>
 								</span>
-                        <h5>添加新的权限</h5>
+                        <h5>编辑权限</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="#" method="" class="form-horizontal" >
-
+                        <form action="{{url('/admin/rbac/rights/doEdit')}}" method="post" class="form-horizontal" >
+                            {{csrf_field()}}
+                            <input type="hidden" name="reight_id" value="{{$rightsInfo -> rights_id}}">
                             <div class="control-group">
                                 <label class="control-label">权限名</label>
                                 <div class="controls">
-                                    <input type="text" name="" placeholder="请输入权限的简称"/>
-                                    <span class="help-block"></span>
+                                    <input type="text" name="rights_name" placeholder="请输入权限的简称" value="{{old('rights_name') ? old('rights_name'):$rightsInfo->rights_name }}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('rights_name')}}</span>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">权限特征</label>
                                 <div class="controls">
-                                    <input type="text" placeholder="请输入权限的路由" />
-                                    <span class="help-block"></span>
+                                    <input type="text" name="rights_mark" placeholder="请输入权限的路由" value="{{old('rights_mark')? old('rights_mark'):$rightsInfo->rights_mark }}" />
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('rights_mark')}}</span>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">添加</button>
+                                <button type="submit" class="btn btn-primary">修改</button>
                             </div>
                         </form>
                     </div>

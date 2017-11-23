@@ -14,4 +14,10 @@ class User extends Model
     protected $fillable = ['user_id','user_account','user_pwd'];
     //主键
     protected $primaryKey = 'user_id';
+
+    //用户角色
+    public function roles()
+    {
+        return $this -> belongsToMany('App\Model\Admin\Role');
+    }
 }

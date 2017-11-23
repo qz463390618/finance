@@ -2,7 +2,7 @@
 <html lang="en">
 <!-- container-fluid -->
 <head>
-    <title>角色管理</title>
+    <title>后台首页</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{url('css/admin/bootstrap.min.css')}}" />
@@ -56,7 +56,7 @@
 
 <div id="content">
     <div id="content-header">
-        <h1>角色管理</h1>
+        <h1>首页</h1>
         <div class="btn-group">
             <a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
             <a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
@@ -66,7 +66,8 @@
     </div>
     <div id="breadcrumb">
         <a href="#" title="返回后台首页" class="tip-bottom"><i class="icon-home"></i> 后台</a>
-        <a href="#" class="current">角色管理</a>
+        <a href="{{url('/admin/rbac/rights')}}" class="tip-bottom">权限管理</a>
+        <a href="#" class="current">添加权限</a>
     </div>
     <div class="container-fluid">
         <div class="row-fluid">
@@ -74,29 +75,37 @@
                 <div class="widget-box">
                     <div class="widget-title">
 								<span class="icon">
-									<i class="icon-th"></i>
+									<i class="icon-align-justify"></i>
 								</span>
-                        <h5>角色列表</h5>
+                        <h5>添加新的权限</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>角色名</th>
-                                <th>拥有权限</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Row 1</td>
-                                    <td>Row 1</td>
-                                    <td>Row 2</td>
-                                    <td><a href="">编辑</a><a href="">删除</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <form action="{{url('/admin/rbac/rights/doAdd')}}" method="post" class="form-horizontal" >
+                            {{csrf_field()}}
+                            <div class="control-group">
+                                <label class="control-label">权限名</label>
+                                <div class="controls">
+                                    <input type="text" name="rights_name" placeholder="请输入权限的简称" value="{{old('rights_name')}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('rights_name')}}</span>
+                                    @endif
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">权限特征</label>
+                                <div class="controls">
+                                    <input type="text" name="rights_mark" placeholder="请输入权限的路由" value="{{old('rights_name')}}" />
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('rights_mark')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">添加</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

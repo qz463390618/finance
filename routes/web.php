@@ -31,19 +31,24 @@ Route::group(['prefix'=>'admin'],function()
             Route::get('/','Admin\RightsController@index');
             Route::get('add','Admin\RightsController@showAdd');
             Route::post('doAdd','Admin\RightsController@doAdd');
-            /*Route::get('/','Admin\RightsController@index')->middleware('admin.check.id');
-            Route::get('add','Admin\RightsController@showAdd')->middleware('admin.check.id');
-            Route::post('doAdd','Admin\RightsController@doAdd')->middleware('admin.check.id');*/
+            Route::get('edit/{id}','Admin\RightsController@showEdit');
+            Route::post('doEdit','Admin\RightsController@doEdit');
+            Route::post('doDel','Admin\RightsController@doDel');
         });
         //用户管理
         Route::group(['prefix'=>'user'],function()
         {
             Route::get('/','Admin\UserController@index');
+
         });
         //角色管理
         Route::group(['prefix'=>'role'],function()
         {
             Route::get('/','Admin\RoleController@index');
+            Route::get('add','Admin\RoleController@showAdd');
+            Route::post('doAdd','Admin\RoleController@doAdd');
+            Route::get('edit/{id}','Admin\RoleController@showEdit');
+            Route::post('doEdit','Admin\RoleController@doEdit');
         });
     });
 });
