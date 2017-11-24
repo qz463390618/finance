@@ -122,7 +122,20 @@ alert("编辑权限成功");window.location.href="/admin/rbac/rights";
     //删除权限
     public function doDel(Request $request)
     {
+        DB::beginTransaction();
+        try{
+            //删除所有的权限
+            Rights::find($request->post('id'))->roles()->detach();
+            $mark =  Rights::where('rights_id',$request->post('id'))->delete();
+            DB::commit();
+            return $mark;
+        }catch (\Exception $e){
+
+            DB::rollBack();
+            return  $e;
+        }
+        /*Rights::find($request->post('id'))->roles()->detach();
         $mark =  Rights::where('rights_id',$request->post('id'))->delete();
-        return $mark;
+        return $mark;*/
     }
 }

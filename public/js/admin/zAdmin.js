@@ -48,11 +48,32 @@ function editRoleCollatingRights()
             Rightses += ','+Trim($(this).text());
         }
     });
-    console.log(Rightses);
+    //console.log(Rightses);
     $('input[name=role_rights]').val(Rightses);
 
     $('.form-horizontal').submit();
 }
+
+//编辑用户, 整理权限
+function editUserCollatingRoles()
+{
+    var Role = $('.select2-search-choice');
+    //把现在所选的角色,拼接成字符串,用都好分隔
+    var Roles;
+    $(Role).each(function()
+    {
+        if($(this).text() == $(Role[0]).text())
+        {
+            Roles = Trim($(this).text());
+        }else{
+            Roles += ','+Trim($(this).text());
+        }
+    });
+    $('input[name=user_role]').val(Roles);
+
+    $('.form-horizontal').submit();
+}
+
 
 function Trim(str)
 {

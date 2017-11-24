@@ -2,14 +2,14 @@
 <html lang="en">
 <!-- container-fluid -->
 <head>
-    <title>角色管理</title>
+    <title>后台首页</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{url('css/admin/bootstrap.css')}}" />
     <link rel="stylesheet" href="{{url('css/admin/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{url('css/admin/bootstrap-responsive.min.css')}}" />
     <link rel="stylesheet" href="{{url('css/admin/unicorn.main.css')}}" />
     <link rel="stylesheet" href="{{url('css/admin/unicorn.grey.css')}}" class="skin-color" />
+    <link rel="stylesheet" href="{{url('css/admin/select2.css')}}" class="skin-color" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 
@@ -57,7 +57,7 @@
 
 <div id="content">
     <div id="content-header">
-        <h1>角色管理</h1>
+        <h1>首页</h1>
         <div class="btn-group">
             <a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
             <a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
@@ -67,48 +67,65 @@
     </div>
     <div id="breadcrumb">
         <a href="#" title="返回后台首页" class="tip-bottom"><i class="icon-home"></i> 后台</a>
-        <a href="#" class="current">角色管理</a>
+        <a href="{{url('/admin/rbac/user')}}" class="tip-bottom">用户管理</a>
+        <a href="#" class="current">添加用户</a>
     </div>
     <div class="container-fluid">
-        <p style="margin-top: 15px;">
-            <button class="btn btn-large" onclick="window.location.href='{{url('admin/rbac/role/add')}}'">添加角色</button>
-        </p>
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
                     <div class="widget-title">
 								<span class="icon">
-									<i class="icon-th"></i>
+									<i class="icon-align-justify"></i>
 								</span>
-                        <h5>角色列表</h5>
+                        <h5>添加新的用户</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>角色名</th>
-                                <th>拥有权限</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($data as $val)
-                                <tr>
-                                    <td>{{$val -> role_id}}</td>
-                                    <td>{{$val -> role_name}}</td>
-                                    <td>{{getRights($val -> role_id)}}</td>
-                                    <td >
-                                        <a href="{{url('/admin/rbac/role/edit').'/'.$val -> role_id}}" style="margin-right:20%">编辑</a>
-                                        <a href="javascript:doDel('role',{{$val -> role_id}})">删除</a></td>
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div style="text-align: center;">
-                            {{$data -> links()}}
-                        </div>
+                        <form action="{{url('/admin/rbac/user/doAdd')}}" method="post" class="form-horizontal" >
+                            {{csrf_field()}}
+                            <div class="control-group">
+                                <label class="control-label">用户名</label>
+                                <div class="controls">
+                                    <input type="text" name="user_name" placeholder="请输入用户名" value="{{old('user_name')}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('user_name')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">密&nbsp;&nbsp;码</label>
+                                <div class="controls">
+                                    <input type="password" name="password" placeholder="请输入密码" value="{{old('password')}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('password')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">确认密码</label>
+                                <div class="controls">
+                                    <input type="password" name="password_confirmation" placeholder="请再次输入密码" value="{{old('password_confirmation')}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('password_confirmation')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            {{--<div class="control-group">
+                                <label class="control-label">所拥有权限</label>
+                                <div class="controls">
+                                    <select multiple="">
+                                        @foreach($rightses as $rights)
+                                            <option >{{$rights['rights_name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>--}}
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" {{--onclick="addRoleCollatingRights()"--}}>添加</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -118,8 +135,11 @@
 
 <script src="{{url('js/admin/jquery.min.js')}}"></script>
 <script src="{{url('js/admin/unicorn.js')}}"></script>
-<script src="{{url('js/admin/unicorn.tables.js')}}"></script>
+<script src="{{url('js/admin/bootstrap.min.js')}}"></script>
+<script src="{{url('js/admin/bootstrap-colorpicker.js')}}"></script>
+<script src="{{url('js/admin/jquery.uniform.js')}}"></script>
+<script src="{{url('js/admin/select2.min.js')}}"></script>
+<script src="{{url('js/admin/unicorn.form_common.js')}}"></script>
 <script src="{{url('js/admin/zAdmin.js')}}"></script>
-
 </body>
 </html>

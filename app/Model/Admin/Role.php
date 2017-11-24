@@ -18,13 +18,13 @@ class Role extends Model
     //角色权限
     public function rightses()
     {
-        return $this->belongsToMany('App\Model\Admin\Rights');
+        return $this->belongsToMany('App\Model\Admin\Rights','zwf_admin_role_rights','role_id','rights_id');
     }
 
     //角色对应用户
     public function users()
     {
-        return $this -> belongsToMany('App\Model\Admin\user');
+        return $this -> belongsToMany('App\Model\Admin\user','zwf_admin_user_roles','role_id','user_id');
     }
 
 }

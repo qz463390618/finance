@@ -39,6 +39,11 @@ Route::group(['prefix'=>'admin'],function()
         Route::group(['prefix'=>'user'],function()
         {
             Route::get('/','Admin\UserController@index');
+            Route::get('add','Admin\UserController@showAdd');
+            Route::post('doAdd','Admin\UserController@doAdd');
+            Route::get('edit/{id}','Admin\UserController@showEdit');
+            Route::post('doEdit','Admin\UserController@doEdit');
+            Route::post('doDel','Admin\UserController@doDel');
 
         });
         //角色管理
@@ -49,6 +54,7 @@ Route::group(['prefix'=>'admin'],function()
             Route::post('doAdd','Admin\RoleController@doAdd');
             Route::get('edit/{id}','Admin\RoleController@showEdit');
             Route::post('doEdit','Admin\RoleController@doEdit');
+            Route::post('doDel','Admin\RoleController@doDel');
         });
     });
 });

@@ -69,8 +69,8 @@
         <a href="#" class="current">用户管理</a>
     </div>
     <div class="container-fluid">
-        <p>
-            <button class="btn">增加用户</button>
+        <p style="margin-top: 15px;">
+            <button class="btn btn-large" onclick="window.location.href='{{url('admin/rbac/user/add')}}'">添加用户</button>
         </p>
         <div class="row-fluid">
             <div class="span12">
@@ -87,19 +87,27 @@
                             <tr>
                                 <th>id</th>
                                 <th>用户名</th>
-                                <th>所属角色</th>
+                                <th>所拥有角色</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $val)
                                 <tr>
-                                    <td>Row 1</td>
-                                    <td>Row 1</td>
-                                    <td>Row 2</td>
-                                    <td><a href="">编辑</a><a href="">删除</a></td>
+                                    <td>{{$val -> user_id}}</td>
+                                    <td>{{$val -> user_account}}</td>
+                                    <td>{{getRoles($val -> user_id)}}</td>
+                                    <td >
+                                        <a href="{{url('/admin/rbac/user/edit').'/'.$val -> user_id}}" style="margin-right:20%">编辑</a>
+                                        <a href="javascript:doDel('user',{{$val -> user_id}})">删除</a></td>
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        <div style="text-align: center;">
+                            {{$data -> links()}}
+                        </div>
                     </div>
                 </div>
             </div>

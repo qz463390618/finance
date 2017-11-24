@@ -18,6 +18,6 @@ class Rights extends Model
     //权限对应角色
     public function roles()
     {
-        return $this ->belongsToMany('App\Model\Admin\Role');
+        return $this ->belongsToMany('App\Model\Admin\Role','zwf_admin_role_rights','rights_id','role_id');
     }
 }

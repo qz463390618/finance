@@ -30,10 +30,8 @@ class RoleController extends Controller
     //执行添加角色,和添加权限
     public function doAdd(Request $request)
     {
-        var_dump($request -> post());
         //整理权限,使用,分隔开为数组
         $rightses =explode(',',$request->post('role_rights'));
-        var_dump($rightses);
         $messages = [
             'role_name.required' => '角色名不能为空',
             'role_name.unique' => '这个角色名已经存在了',
@@ -119,6 +117,57 @@ class RoleController extends Controller
 
     public function doEdit(Request $request)
     {
-        var_dump($request->toArray());
+        DB::beginTransaction();
+        try{
+            //获取这个角色对象
+            $role = Role::find($request->role_id);
+            //把获取到的权限字符串转换成数组
+            //if(($request->post('role_rights'),','))
+
+            $rightses_names = explode(',',$request->post('role_rights'));
+            //根据权限名数组,获取权限id数组
+            foreach($rightses_names as $rightses_name)
+            {
+                $rightses_ids[] = Rights::where('rights_name',$rightses_name)->first()->rights_id;
+            }
+            //删除角色所有权限
+            $role ->rightses()->detach();
+            //添加角色权限
+            $role -> rightses()->attach($rightses_ids);
+            //更新角色名
+            Role::where('role_id',$request->role_id)->update([
+                'role_name' => $request -> role_name,
+            ]);
+            //提交事务
+            DB::commit();
+            return '<script>alert("编辑角色成功");window.location.href="/admin/rbac/role"</script>';
+        }catch (\Exception $e){
+
+            //回滚事务
+            DB::rollBack();
+            return '<script>alert("编辑失败!请稍候重试");window.location.href="/admin/rbac/role"</script>';
+        }
+        //$rights = $role -> rightses()->get()->toArray();
+        /*foreach($role -> rightses()->get() as $rights)
+        {
+            $rightses[] = $rights -> pivot -> rights_id;
+        }*/
+    }
+
+    public function doDel(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            //删除关于这个角色所有的权限
+            Role::find($request->post('id'))->rightses()->detach();
+            //删除有关于这个含有这个角色的用户角色表数据
+            Role::find($request->post('id'))->users()->detach();
+            $mark =  Role::where('role_id',$request->post('id'))->delete();
+            DB::commit();
+            return $mark;
+        }catch (\Exception $e){
+            echo $e;
+            DB::rollBack();
+        }
     }
 }
