@@ -112,13 +112,18 @@ class UserController extends Controller
         try{
             //获取这个用户对象
             $user = User::find($request->user_id);
-            //把角色字符串换成角色数组形式
-            $roles = explode(',',$request->post('user_role'));
-            //根据角色名获取角色id
-            foreach($roles as $role)
-            {
-                $role_ids[] = Role::where('role_name',$role)->first()->role_id;
 
+            $role_ids = [];
+            if(!empty($request->post('user_role')))
+            {
+                //把角色字符串换成角色数组形式
+                $roles = explode(',',$request->post('user_role'));
+                //根据角色名获取角色id
+                foreach($roles as $role)
+                {
+                    $role_ids[] = Role::where('role_name',$role)->first()->role_id;
+
+                }
             }
             //删除用户所有角色
             $user -> roles()->detach();
@@ -140,6 +145,7 @@ class UserController extends Controller
             DB::commit();
             return '<script>alert("编辑用户成功");window.location.href="/admin/rbac/user"</script>';
         }catch (\Exception $e){
+            echo $e;die;
             DB::rollBack();
             //echo $e;die;
             return '<script>alert("编辑用户失败,请稍后再试");window.location.href="/admin/rbac/user"</script>';

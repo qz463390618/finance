@@ -23,7 +23,7 @@ Route::group(['prefix'=>'admin'],function()
     //执行后台退出登录
     Route::get('logout','Admin\AdminController@doLogout');
     //权限管理系统
-    Route::group(['middleware'=>'admin.check.id','prefix'=>'rbac'],function()
+    Route::group(['middleware'=>['admin.check.id','admin.check.permissions'],'prefix'=>'rbac'],function()
     {
         //权限管理
         Route::group(['prefix'=>'rights'],function()

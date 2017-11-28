@@ -124,12 +124,17 @@ class RoleController extends Controller
             //把获取到的权限字符串转换成数组
             //if(($request->post('role_rights'),','))
 
-            $rightses_names = explode(',',$request->post('role_rights'));
-            //根据权限名数组,获取权限id数组
-            foreach($rightses_names as $rightses_name)
+            $rightses_ids = [];
+            if(!empty($request->post('role_rights')))
             {
-                $rightses_ids[] = Rights::where('rights_name',$rightses_name)->first()->rights_id;
+                $rightses_names = explode(',',$request->post('role_rights'));
+                //根据权限名数组,获取权限id数组
+                foreach($rightses_names as $rightses_name)
+                {
+                    $rightses_ids[] = Rights::where('rights_name',$rightses_name)->first()->rights_id;
+                }
             }
+
             //删除角色所有权限
             $role ->rightses()->detach();
             //添加角色权限
