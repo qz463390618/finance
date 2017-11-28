@@ -41,13 +41,14 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                             @foreach($data as $val)
                                 <tr>
                                     <td>{{$val -> rights_id}}</td>
                                     <td>{{$val -> rights_name}}</td>
                                     <td>{{$val -> rights_mark}}</td>
                                     <td ><a href="{{url('/admin/rbac/rights/edit').'/'.$val -> rights_id}}" style="margin-right:20%">编辑</a><a href="javascript:doDel('rights',{{$val -> rights_id}})">删除</a></td>
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+
                                 </tr>
                             @endforeach
                             </tbody>

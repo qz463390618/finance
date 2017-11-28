@@ -57,4 +57,13 @@ Route::group(['prefix'=>'admin'],function()
             Route::post('doDel','Admin\RoleController@doDel');
         });
     });
+
+    //栏目管理
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'column'],function()
+    {
+        Route::get('/','Admin\ColumnController@index');
+        Route::get('add','Admin\ColumnController@showAdd');
+        Route::post('doAdd','Admin\ColumnController@doAdd');
+    });
+
 });

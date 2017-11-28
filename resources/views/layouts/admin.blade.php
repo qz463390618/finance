@@ -48,6 +48,7 @@
                 <li><a href="{{url('/admin/rbac/rights')}}">权限管理</a></li>
             </ul>
         </li>
+        <li><a href="{{url('admin/column')}}"><i class="icon icon-th"></i> <span>栏目管理</span></a></li>
 
     </ul>
 
