@@ -39,6 +39,8 @@
                                 <th>父级</th>
                                 <th>完整路径</th>
                                 <th>控制显隐</th>
+                                <th>文件名</th>
+                                <th>前台链接</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -50,12 +52,19 @@
                                     <td>{{$val -> column_id}}</td>
                                     <td>{{$val -> column_name}}</td>
                                     <td>{{$val -> column_pid}}</td>
-                                    <td>{{$val -> column_display}}</td>
-                                    <td>{{$val -> column_display}}</td>
+                                    <td>{{$val -> column_path}}</td>
+                                    <td>
+                                        <a href="">{{$val -> column_display == 1 ? '显示':($val -> column_display == 2 ? '隐藏':'' ) }} </a>
+                                    </td>
+                                    <td>{{$val -> column_filename}}</td>
+                                    <td>{{$val -> column_chaining}}</td>
                                     <td>{{$val -> created_at}}</td>
                                     <td >
-                                        <a href="{{url('/admin/rbac/role/edit').'/'.$val -> column_id}}" style="margin-right:20%">编辑</a>
+                                        <a href="{{url('/admin/column/edit').'/'.$val -> column_id}}" style="margin-right:10%">编辑</a>
                                         <a href="javascript:doDel('role',{{$val -> column_id}})">删除</a>
+                                        @if($val -> column_pid == 0)
+                                            <a href="" style="margin-left:10%">查看其子级栏目</a>
+                                        @endif
                                     </td>
 
                                 </tr>

@@ -50,3 +50,14 @@ function getRoles($user_id)
     $roles_name = trim($roles_name,',');
     return $roles_name;
 }
+
+//根据父级id 获取栏目名
+function getParetColumn($pid)
+{
+    if($pid == 0)
+    {
+        return '/';
+    }
+    $paretInfo = \App\Model\Admin\Column::where('column_id',$pid)->first();
+    return $paretInfo->column_name;
+}

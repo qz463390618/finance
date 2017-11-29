@@ -38,7 +38,6 @@
                                     @if(count($errors)>0)
                                         <span class="help-block">{{$errors -> first('rights_name')}}</span>
                                     @endif
-
                                 </div>
                             </div>
                             <div class="control-group">

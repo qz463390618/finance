@@ -64,6 +64,8 @@ Route::group(['prefix'=>'admin'],function()
         Route::get('/','Admin\ColumnController@index');
         Route::get('add','Admin\ColumnController@showAdd');
         Route::post('doAdd','Admin\ColumnController@doAdd');
+        Route::get('edit/{id}','Admin\ColumnController@showEdit');
+        Route::post('doEdit','Admin\ColumnController@doEdit');
     });
 
 });
