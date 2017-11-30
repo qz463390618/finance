@@ -56,9 +56,10 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div style="text-align: center;">
-                            {{$data -> links()}}
-                        </div>
+
+                    </div>
+                    <div style="text-align: center;">
+                        {{$data -> links()}}
                     </div>
                 </div>
             </div>

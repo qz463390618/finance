@@ -6,7 +6,7 @@
 //删除数据
 function doDel(mark,id)
 {
-    var con = confirm('请问是否是要删除这条权限');
+    var con = confirm('请问是否是要删除这条数据');
     if(con == true)
     {
         data = {
@@ -14,7 +14,7 @@ function doDel(mark,id)
             _token:$('#token').val()
 
         };
-        console.log(data);
+        //console.log(data);
         $.ajax({
             url:'/admin/rbac/'+mark+'/doDel',
             type:'post',
@@ -74,8 +74,70 @@ function editUserCollatingRoles()
     $('.form-horizontal').submit();
 }
 
-
 function Trim(str)
 {
     return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+//删除栏目
+function delColumn(mark,id)
+{
+    var con = confirm('请问是否是要删除这条');
+    if(con == true)
+    {
+        data = {
+            id :id,
+            _token:$('#token').val()
+
+        };
+        //console.log(data);
+        $.ajax({
+            url:'/admin/'+mark+'/doDel',
+            type:'post',
+            async:false,
+            data:data,
+            success:function(data){
+                if(data == 200)
+                {
+                    location.replace(location.href);
+                }else if(data == 108){
+                    alert('删除失败,此栏目还有子栏目不可删除');
+                }
+
+            }
+        });
+    }else{
+        return false;
+    }
+}
+
+function delClass(mark,id)
+{
+    var con = confirm('请问是否是要删除这条');
+    if(con == true)
+    {
+        data = {
+            id :id,
+            _token:$('#token').val()
+
+        };
+        //console.log(data);
+        $.ajax({
+            url:'/admin/'+mark+'/doDel',
+            type:'post',
+            async:false,
+            data:data,
+            success:function(data){
+                if(data == 1)
+                {
+                    location.replace(location.href);
+                }else{
+                    alert('删除失败');
+                }
+
+            }
+        });
+    }else{
+        return false;
+    }
 }

@@ -54,14 +54,14 @@
                                     <td>{{$val -> column_pid}}</td>
                                     <td>{{$val -> column_path}}</td>
                                     <td>
-                                        <a href="">{{$val -> column_display == 1 ? '显示':($val -> column_display == 2 ? '隐藏':'' ) }} </a>
+                                        <a href="{{url('/admin/column/editDisplay').'/'.$val -> column_id}}">{{$val -> column_display == 1 ? '显示':($val -> column_display == 2 ? '隐藏':'' ) }} </a>
                                     </td>
                                     <td>{{$val -> column_filename}}</td>
                                     <td>{{$val -> column_chaining}}</td>
                                     <td>{{$val -> created_at}}</td>
                                     <td >
                                         <a href="{{url('/admin/column/edit').'/'.$val -> column_id}}" style="margin-right:10%">编辑</a>
-                                        <a href="javascript:doDel('role',{{$val -> column_id}})">删除</a>
+                                        <a href="javascript:delColumn('column',{{$val -> column_id}})">删除</a>
                                         @if($val -> column_pid == 0)
                                             <a href="" style="margin-left:10%">查看其子级栏目</a>
                                         @endif
@@ -71,9 +71,10 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div style="text-align: center;">
 
-                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        {{$data -> links()}}
                     </div>
                 </div>
             </div>
@@ -81,4 +82,5 @@
     </div>
 @endsection
 @section('my-js')
+    <script src="{{url('js/admin/zAdmin.js')}}"></script>
 @endsection

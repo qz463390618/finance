@@ -51,9 +51,12 @@ class CheckPermissions
         }
 
         //取出所需要权限的角色id
+        $roles_ids = [];
         foreach (Rights::find($rights_id)->roles()->get() as $role) {
+
             $roles_ids[] = $role->pivot->role_id;
         }
+
         //根据当前权限id 获取有这个权限的所有角色id
 
         //获取当前用户所拥有的角色id

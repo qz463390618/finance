@@ -101,14 +101,10 @@ class ColumnController extends Controller
         $yColumnInfo = Column::where('column_id',$request->column_id)->first();
         $messages = [
             'column_name.required' => '栏目名不能为空',
-            'column_name.unique' => '栏目名已存在',
             'column_name.max' => '栏目名最长max位',
-            'column_chaining.required' => '文件名不能为空',
-            'column_chaining.unique' => '文件名重复',
-            'column_chaining.max' => '文件名最长max位',
         ];
         $validator=Validator::make($request->all(),[
-            'column_name' => 'bail|required|unique:zwf_admin_column,column_name|max:50',
+            'column_name' => 'bail|required|max:50',
         ],$messages);
 
         if($validator -> fails())
@@ -119,7 +115,7 @@ class ColumnController extends Controller
         try{
             Column::where(['column_id'=>$request->column_id])->update([
                 'column_name' =>$request -> column_name,
-                'column_display' => $request -> column_display,
+                'column_display' => $request ->display,
             ]);
             DB::commit();
             return "<script>alert('修改栏目成功');window.location.href='/admin/column'</script>";
@@ -128,5 +124,31 @@ class ColumnController extends Controller
             return "<script>alert('修改栏目失败');window.location.href='/admin/column'</script>";
         }
 
+    }
+    //简单修改显隐
+    public function editDisplay($id)
+    {
+        $columnInfo = Column::where('column_id',$id)->first();
+        $displayVal = $columnInfo -> column_display == 1 ? 2: 1;
+        Column::where('column_id',$id)->update([
+            'column_display' => $displayVal,
+        ]);
+        return back();
+    }
+    //执行删除栏目
+    public function doDel(Request $request)
+    {
+        //var_dump($request->toArray());
+        $columnInfo = Column::where('column_id',$request->id)->first();
+        $columns = Column::get();
+        foreach($columns as $column)
+        {
+            $column_path_arr = explode(',',$column->column_path);
+            if(in_array($columnInfo->column_id,$column_path_arr)){
+                return '108';
+            }
+        }
+        Column::where('column_id',$request->id)->delete();
+        return '200';
     }
 }

@@ -49,7 +49,15 @@
             </ul>
         </li>
         <li><a href="{{url('admin/column')}}"><i class="icon icon-th"></i> <span>栏目管理</span></a></li>
-
+        <li><a href="{{url('admin/class')}}"><i class="icon icon-th"></i> <span>分类管理</span></a></li>
+        <li class="submenu">
+            <a href="#"><i class="icon icon-th-list"></i> <span>信息中心</span> <span class="label">3</span></a>
+            <ul>
+                <li><a href="{{url('/admin/information/announcement')}}">中心公告</a></li>
+                <li><a href="{{url('/admin/information/dynamics')}}">中心动态</a></li>
+                <li><a href="{{url('/admin/information/impnews')}}">资讯要闻</a></li>
+            </ul>
+        </li>
     </ul>
 
 </div>

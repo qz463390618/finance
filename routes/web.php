@@ -57,7 +57,6 @@ Route::group(['prefix'=>'admin'],function()
             Route::post('doDel','Admin\RoleController@doDel');
         });
     });
-
     //栏目管理
     Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'column'],function()
     {
@@ -66,6 +65,26 @@ Route::group(['prefix'=>'admin'],function()
         Route::post('doAdd','Admin\ColumnController@doAdd');
         Route::get('edit/{id}','Admin\ColumnController@showEdit');
         Route::post('doEdit','Admin\ColumnController@doEdit');
+        Route::get('editDisplay/{id}','Admin\ColumnController@editDisplay');
+        Route::post('doDel','Admin\ColumnController@doDel');
     });
-
+    //分类管理
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'class'],function()
+    {
+        Route::get('/','Admin\ClassController@index');
+        Route::get('add','Admin\ClassController@showAdd');
+        Route::post('doAdd','Admin\ClassController@doAdd');
+        Route::get('edit/{id}','Admin\ClassController@showEdit');
+        Route::post('doEdit','Admin\ClassController@doEdit');
+        Route::post('doDel','Admin\ClassController@doDel');
+    });
+    //信息中心
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'information'],function()
+    {
+        //中心公告
+        Route::group(['prefix'=>'announcement'],function()
+        {
+            Route::get('/','Admin\AnnouncementController@index');
+        });
+    });
 });
