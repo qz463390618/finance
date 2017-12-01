@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2017-11-30 18:03:01
+Date: 2017-12-01 18:05:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -102,7 +102,7 @@ CREATE TABLE `zwf_admin_information_data` (
   `writer` varchar(30) DEFAULT NULL COMMENT '作者',
   `befrom` varchar(60) DEFAULT NULL COMMENT '来源',
   `newstext` mediumtext NOT NULL COMMENT '文章内容',
-  `seotext` text NOT NULL COMMENT '文章描述'
+  `seotext` text COMMENT '文章描述'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='信息中心 文章内容';
 
 -- ----------------------------
@@ -140,11 +140,12 @@ CREATE TABLE `zwf_admin_role` (
   `role_name` char(30) NOT NULL COMMENT '角色名',
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `role_name` (`role_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of zwf_admin_role
 -- ----------------------------
+INSERT INTO `zwf_admin_role` VALUES ('4', '作者');
 INSERT INTO `zwf_admin_role` VALUES ('2', '权限管理员');
 INSERT INTO `zwf_admin_role` VALUES ('3', '用户管理员');
 INSERT INTO `zwf_admin_role` VALUES ('1', '超级管理员');
