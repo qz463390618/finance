@@ -81,10 +81,9 @@ Route::group(['prefix'=>'admin'],function()
     //信息中心
     Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'information'],function()
     {
-        //中心公告
-        Route::group(['prefix'=>'announcement'],function()
-        {
-            Route::get('/','Admin\AnnouncementController@index');
-        });
+        //显示信息中心文章列表
+        Route::get('/','Admin\InformationController@index');
+        //显示添加文章页面
+        Route::get('add','Admin\InformationController@showAdd');
     });
 });
