@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title', '添加文章')
 @section('my-css')
+    <link rel="stylesheet" href="{{url('css/admin/uniform.css')}}" />
 @endsection
 @section('content')
     <div id="content-header">
@@ -28,28 +29,58 @@
                         <h5>添加新的文章</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="{{url('/admin/rbac/rights/doAdd')}}" method="post" class="form-horizontal" >
+                        <form action="{{url('/admin/information/doAdd')}}" method="post" class="form-horizontal" >
                             {{csrf_field()}}
                             <div class="control-group">
-                                <label class="control-label">权限名</label>
+                                <label class="control-label">文章名</label>
                                 <div class="controls">
-                                    <input type="text" name="rights_name" placeholder="请输入权限的简称" value="{{old('rights_name')}}"/>
+                                    <input type="text" name="articles_name" placeholder="请输入文章名" value="{{old('articles_name')}}"/>
                                     @if(count($errors)>0)
-                                        <span class="help-block">{{$errors -> first('rights_name')}}</span>
+                                        <span class="help-block">{{$errors -> first('articles_name')}}</span>
                                     @endif
-
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">权限特征</label>
+                                <label class="control-label">文章类型</label>
                                 <div class="controls">
-                                    <input type="text" name="rights_mark" placeholder="请输入权限的路由" value="{{old('rights_name')}}" />
+                                    <select class="form-control" name="parent">
+                                        @foreach($allClass as $class)
+                                        <option value="{{$class->class_id}}">{{$class -> class_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">所属栏目</label>
+                                <div class="controls">
+                                    <select class="form-control" name="parent">
+                                        @foreach($columns as $column)
+                                            <option value="{{$column->column_id}}">{{$column -> column_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">封面图片</label>
+                                <div class="controls">
+                                    <input type="file" name="cover" />
                                     @if(count($errors)>0)
-                                        <span class="help-block">{{$errors -> first('rights_mark')}}</span>
+                                        <span class="help-block">{{$errors -> first('cover')}}</span>
                                     @endif
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label">简介</label>
+                                <div class="controls">
+                                    <textarea name="intro"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls" style="margin-right: 17%">
+                                    <script id="zlqEdit" name="content" type="text/plain">填写文章内容</script>
+                                </div>
 
+                            </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">添加</button>
                             </div>
@@ -61,4 +92,13 @@
     </div>
 @endsection
 @section('my-js')
+    <script src="{{url('plugIn/editor/ueditor.config.js')}}"></script>
+    <script src="{{url('plugIn/editor/ueditor.all.js')}}"></script>
+    <script src="{{url('js/admin/bootstrap.min.js')}}"></script>
+    <script src="{{url('js/admin/jquery.uniform.js')}}"></script>
+    <script src="{{url('js/admin/unicorn.form_common.js')}}"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('zlqEdit');
+    </script>
 @endsection

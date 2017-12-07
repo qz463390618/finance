@@ -85,5 +85,7 @@ Route::group(['prefix'=>'admin'],function()
         Route::get('/','Admin\InformationController@index');
         //显示添加文章页面
         Route::get('add','Admin\InformationController@showAdd');
+        //执行添加文章
+        Route::post('doAdd','Admin\InformationController@doAdd');
     });
 });
