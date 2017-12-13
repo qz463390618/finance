@@ -194,7 +194,8 @@
         //fontsize
         //字号
         //,'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
-
+		//抓取远程图片是否开启,默认true
+		,catchRemoteImageEnable:false
         //paragraph
         //段落格式 值留空时支持多语言自动识别，若配置，则以配置值为准
         //,'paragraph':{'p':'', 'h1':'', 'h2':'', 'h3':'', 'h4':'', 'h5':'', 'h6':''}

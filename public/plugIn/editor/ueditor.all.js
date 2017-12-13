@@ -9967,7 +9967,8 @@ var LocalStorage = UE.LocalStorage = (function () {
 UE.plugins['defaultfilter'] = function () {
     var me = this;
     me.setOpt({
-        'allowDivTransToP':true,
+        //'allowDivTransToP':true,
+        'allowDivTransToP':false,
         'disabledTableInTable':true
     });
     //默认的过滤处理
@@ -15156,7 +15157,7 @@ UE.plugins['list'] = function () {
     });
     //进入编辑器的li要套p标签
     me.addInputRule(function(root){
-        utils.each(root.getNodesByTagName('li'),function(li){
+		utils.each(root.getNodesByTagName('li'),function(li){
             var tmpP = UE.uNode.createElement('p');
             for(var i= 0,ci;ci=li.children[i];){
                 if(ci.type == 'text' || dtd.p[ci.tagName]){

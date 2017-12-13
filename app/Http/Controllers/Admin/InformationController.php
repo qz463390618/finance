@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\UploadFileController;
 use App\Model\Admin\Column;
 use App\Model\Admin\zClass;
 use Illuminate\Http\Request;
@@ -28,9 +29,22 @@ class InformationController extends Controller
             'columns' => $columns
         ]);
     }
+
+
+
     //执行添加文章
-    public function doAdd(Request $request)
+    public function doAdd(Request $request,UploadFileController $file)
     {
-        var_dump($request->toArray());
+
+        //$file -> upFile($request -> file('cover'));
+        $file -> upFile($_FILES['cover']);
+
+        if ($request ->hasFile('cover'))
+        {
+        }
+        $file = $request -> file('cover');
+
     }
+
+
 }

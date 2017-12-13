@@ -29,7 +29,7 @@
                         <h5>添加新的文章</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="{{url('/admin/information/doAdd')}}" method="post" class="form-horizontal" >
+                        <form action="{{url('/admin/information/doAdd')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="control-group">
                                 <label class="control-label">文章名</label>
@@ -63,7 +63,7 @@
                             <div class="control-group">
                                 <label class="control-label">封面图片</label>
                                 <div class="controls">
-                                    <input type="file" name="cover" />
+                                    <input type="file" name="cover" >
                                     @if(count($errors)>0)
                                         <span class="help-block">{{$errors -> first('cover')}}</span>
                                     @endif
@@ -76,8 +76,9 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <div class="controls" style="margin-right: 17%">
-                                    <script id="zlqEdit" name="content" type="text/plain">填写文章内容</script>
+                                <label class="control-label">正文内容</label>
+                                <div class="controls" style="margin-right: 17%;">
+                                    <script id="zlqEdit" name="content" type="text/plain" >"你的内容"</script>
                                 </div>
 
                             </div>
@@ -99,6 +100,10 @@
     <script src="{{url('js/admin/unicorn.form_common.js')}}"></script>
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-        var ue = UE.getEditor('zlqEdit');
+        var ue = UE.getEditor('zlqEdit',{
+            initialFrameHeight:500,
+            scaleEnabled:true,
+            enterTag : 'br'
+        });
     </script>
 @endsection
