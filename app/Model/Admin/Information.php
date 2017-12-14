@@ -10,7 +10,7 @@ class Information extends Model
     //有时间字段,不自动更新,手动更新
     public $timestamps = false;
     //白名单
-    protected $fillable = ['news_id','class_id','cloumn_id','onclick','titlepic','smalltext','truetime','lastdotime'];
+    protected $fillable = ['news_id','class_id','cloumn_id','onclick','titlepic','smalltext','keyboard','truetime','lastdotime'];
     //主键
     protected $primaryKey = 'news_id';
 

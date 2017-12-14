@@ -14,7 +14,7 @@ return [
     */
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
-
+    'hosts' =>'img.zwf.com/' ,
     /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk

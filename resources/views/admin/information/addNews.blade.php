@@ -72,15 +72,46 @@
                             <div class="control-group">
                                 <label class="control-label">简介</label>
                                 <div class="controls">
-                                    <textarea name="intro"></textarea>
+                                    <textarea name="smalltext"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">关键词</label>
+                                <div class="controls">
+                                    <input type="text" name="keywords" placeholder="请输入关键词,多个词用,分隔" value="{{old('keywords')}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('keywords')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">seo描述</label>
+                                <div class="controls">
+                                    <textarea name="seotext"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">作者</label>
+                                <div class="controls">
+                                    <select class="form-control" name="writer">
+                                        <option></option>
+                                        @foreach($adminUsers as $writer)
+                                            <option>{{$writer -> user_account}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">来源</label>
+                                <div class="controls">
+                                    <input type="text" name="befrom" placeholder="来源网站" value="{{old('befrom')}}"/>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">正文内容</label>
                                 <div class="controls" style="margin-right: 17%;">
-                                    <script id="zlqEdit" name="content" type="text/plain" >"你的内容"</script>
+                                    <script id="zlqEdit" name="content" type="text/plain" ></script>
                                 </div>
-
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">添加</button>

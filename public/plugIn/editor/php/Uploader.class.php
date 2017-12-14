@@ -365,7 +365,8 @@ class Uploader
     {
         return array(
             "state" => $this->stateInfo,
-            "url" => $this->fullName,
+            //"url" => $this->fullName,
+            "url" => str_replace('/upload/images/','',$this->fullName),
             "title" => $this->fileName,
             "original" => $this->oriName,
             "type" => $this->fileType,
