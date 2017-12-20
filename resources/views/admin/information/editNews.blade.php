@@ -26,15 +26,16 @@
 								<span class="icon">
 									<i class="icon-align-justify"></i>
 								</span>
-                        <h5>添加新的文章</h5>
+                        <h5>编辑文章</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="{{url('/admin/information/doAdd')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <form action="{{url('/admin/information/doEdit')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                             {{csrf_field()}}
+                            <input type="hidden" name="news_id" value="{{$news->news_id}}">
                             <div class="control-group">
                                 <label class="control-label">文章名</label>
                                 <div class="controls">
-                                    <input type="text" name="articles_name" placeholder="请输入文章名" value="{{old('articles_name')}}"/>
+                                    <input type="text" name="articles_name" placeholder="请输入文章名" value="{{old('articles_name') ? old('articles_name'):$news -> title }}"/>
                                     @if(count($errors)>0)
                                         <span class="help-block">{{$errors -> first('articles_name')}}</span>
                                     @endif
@@ -45,7 +46,7 @@
                                 <div class="controls">
                                     <select class="form-control" name="class_id">
                                         @foreach($allClass as $class)
-                                        <option value="{{$class->class_id}}">{{$class -> class_name}}</option>
+                                            <option value="{{$class->class_id}}" <?= $news -> class_id == $class->class_id ? 'selected': ''?>>{{$class -> class_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -55,7 +56,7 @@
                                 <div class="controls">
                                     <select class="form-control" name="parent">
                                         @foreach($columns as $column)
-                                            <option value="{{$column->column_id}}">{{$column -> column_name}}</option>
+                                            <option value="{{$column->column_id}}" <?= $news -> column_id == $column->column_id ? 'selected': ''?> >{{$column -> column_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -72,13 +73,13 @@
                             <div class="control-group">
                                 <label class="control-label">简介</label>
                                 <div class="controls">
-                                    <textarea name="smalltext"></textarea>
+                                    <textarea name="smalltext">{{$news -> smalltext}}</textarea>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">关键词</label>
                                 <div class="controls">
-                                    <input type="text" name="keywords" placeholder="请输入关键词,多个词用,分隔" value="{{old('keywords')}}"/>
+                                    <input type="text" name="keywords" placeholder="请输入关键词,多个词用,分隔" value="{{old('keywords') ? old('keywords'):$news -> keyboard }}"/>
                                     @if(count($errors)>0)
                                         <span class="help-block">{{$errors -> first('keywords')}}</span>
                                     @endif
@@ -87,13 +88,13 @@
                             <div class="control-group">
                                 <label class="control-label">seo描述</label>
                                 <div class="controls">
-                                    <textarea name="seotext"></textarea>
+                                    <textarea name="seotext">{{$newsInfo -> seotext}}</textarea>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">作者</label>
                                 <div class="controls">
-                                    <input type="text" name="writer" placeholder="作者" value="{{old('writer_1')}}" style="width: 10%;"/>
+                                    <input type="text" name="writer" placeholder="作者" value="{{old('writer_1') ?old('writer_1') : $newsInfo->writer}}" style="width: 10%;"/>
                                     <select class="form-control weiter_select">
                                         <option></option>
                                         @foreach($adminUsers as $writer)
@@ -105,7 +106,7 @@
                             <div class="control-group">
                                 <label class="control-label">来源</label>
                                 <div class="controls">
-                                    <input type="text" name="news_befrom" placeholder="来源网站" value="{{old('befrom')}}" style="width: 10%;"/>
+                                    <input type="text" name="news_befrom" placeholder="来源网站" value="{{old('befrom') ? old('befrom') : $newsInfo -> befrom}}" style="width: 10%;"/>
                                     <select class="form-control befrom_select">
                                         <option></option>
                                         <option>南亚国际</option>
@@ -115,11 +116,11 @@
                             <div class="control-group">
                                 <label class="control-label">正文内容</label>
                                 <div class="controls" style="margin-right: 17%;">
-                                    <script id="zlqEdit" name="news_content" type="text/plain" ></script>
+                                    <script id="zlqEdit" name="news_content" type="text/plain"><?php echo $newsInfo -> newstext?></script>
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">添加</button>
+                                <button type="submit" class="btn btn-primary">编辑</button>
                             </div>
                         </form>
                     </div>

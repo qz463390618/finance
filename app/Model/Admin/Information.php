@@ -17,6 +17,6 @@ class Information extends Model
     //内容表一对一
     public function newData()
     {
-        return $this ->hasOne('\Model\Admin\InformationData','news_id','news_id');
+        return $this ->hasOne('App\Model\Admin\InformationData','news_id','news_id');
     }
 }

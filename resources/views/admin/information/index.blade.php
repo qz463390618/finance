@@ -35,14 +35,27 @@
                             <thead>
                             <tr>
                                 <th>id</th>
-                                <th>用户名</th>
-                                <th>所拥有角色</th>
+                                <th>标题</th>
+                                <th>栏目</th>
+                                <th>发布人</th>
+                                <th>发布时间</th>
+                                <th>点击</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-
+                                <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+                                @foreach($newses as $news)
+                                    <tr>
+                                        <td>{{$news ['news_id']}}</td>
+                                        <td>{{$news [ 'title']}}</td>
+                                        <td>{{$news['column_id']}}</td>
+                                        <td>{{$news ['writer']}}</td>
+                                        <td>{{date('Y-m-d H:i:s',$news [ 'truetime'])}}</td>
+                                        <td>{{$news['onclick']}}</td>
+                                        <td><a href="{{url('/admin/information/edit').'/'.$news ['news_id']}}">修改</a><span style="margin:0 10px;">|</span><a href="javascript:delNews({{$news ['news_id']}})">删除</a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -56,4 +69,35 @@
     </div>
 @endsection
 @section('my-js')
+    <script>
+
+        function delNews(id)
+        {
+            var con = confirm('请问是否是要删除这条数据');
+            if(con == true)
+            {
+                data = {
+                    id :id,
+                    _token:$('#token').val()
+
+                };
+                $.ajax({
+                    url:'/admin/information/del',
+                    type:'post',
+                    async:false,
+                    data:data,
+                    success:function(data){
+                        if(data == 1)
+                        {
+                            location.replace(location.href);
+                        }else{
+                            alert('删除失败');
+                        }
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+    </script>
 @endsection

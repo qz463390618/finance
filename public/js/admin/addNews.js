@@ -1,0 +1,14 @@
+$(function()
+{
+    //选择作者
+    $('.weiter_select').change(function()
+    {
+        $('input[name=writer]').val($('.weiter_select').val());
+        $('.weiter_select').val('');
+    });
+    $('.befrom_select').change(function()
+    {
+        $('input[name=news_befrom]').val($('.befrom_select').val());
+        $('.befrom_select').val('');
+    });
+});

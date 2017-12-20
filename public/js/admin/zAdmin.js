@@ -82,7 +82,7 @@ function Trim(str)
 //删除栏目
 function delColumn(mark,id)
 {
-    var con = confirm('请问是否是要删除这条');
+    var con = confirm('请问是否是要删除这条数据');
     if(con == true)
     {
         data = {
