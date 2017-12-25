@@ -19,7 +19,7 @@ class InformationController extends Controller
     //显示文章
     public function index()
     {
-        $news = Information::latest('news_id')->get();
+        /*$news = Information::latest('news_id')->get();
         if(!$news->isEmpty())
         {
             $news = $news->toArray();
@@ -30,10 +30,27 @@ class InformationController extends Controller
                 $news[$mark]['writer'] = $writer -> writer;
                 $mark++;
             }
-        }
-        return view('admin.information.index')->with([
+        }*/
+        /*return view('admin.information.index')->with([
             'newses' => $news
+        ]);*/
+
+        $news = DB::table('zwf_admin_information as zwf')
+            ->join('zwf_admin_information_data as zlq','zwf.news_id','=','zlq.news_id')
+            ->select('zwf.news_id','zwf.title','zwf.onclick','zwf.column_id','zwf.truetime','zlq.writer','zlq.befrom')
+            ->latest('news_id')
+            ->paginate(1);
+        //var_dump($news->toArray());
+
+        return view('admin.information.index')->with([
+            'newses' => $news,
+            'search' => []
         ]);
+
+
+
+
+
     }
     //显示添加文章
     public function showAdd()
@@ -44,8 +61,6 @@ class InformationController extends Controller
         $columns = Column::where('column_pid',4)->get();
         //查询出所有后台的用户
         $adminUsers = User::get();
-
-
 
         //var_dump($classes);die;
         return view('admin.information.addNews')->with([
@@ -108,7 +123,7 @@ class InformationController extends Controller
            return '<script>alert("添加文章失败");window.location.href="/admin/information"</script>';
         }
     }
-
+    //显示修改文章页面
     public function showEdit(Request $request)
     {
         //查询所有的分类
@@ -128,7 +143,7 @@ class InformationController extends Controller
             'newsInfo' => $newsInfo
         ]);
     }
-
+    //执行修改文章
     public function doEdit(Request $request)
     {
         DB::beginTransaction();
@@ -160,7 +175,7 @@ class InformationController extends Controller
             //return '<script>alert("编辑文章失败");window.location.href="/admin/information"</script>';
         }
     }
-
+    //删除修改文章
     public function delNews(Request $request)
     {
         DB::beginTransaction();
@@ -173,6 +188,61 @@ class InformationController extends Controller
             echo $e;
             DB::rollBack();
         }
+
+    }
+
+    //搜索文章
+    public function search(Request $request)
+    {
+
+        //查看sql语句
+        DB::enableQueryLog();
+        //var_dump($request ->toArray());
+        $keyword = $request ->keyword;
+        $show = $request ->show;
+        $infolday = $request -> infolday;
+        $news = DB::table('zwf_admin_information as zwf')
+            ->join('zwf_admin_information_data as zlq','zwf.news_id','=','zlq.news_id')
+            ->select('zwf.news_id','zwf.title','zwf.onclick','zwf.column_id','zwf.truetime','zlq.writer','zlq.befrom')
+            -> where(function($query) use ($request) {
+                if ($request->show == 0 )
+                {
+                    $query
+                        ->orWhere('zwf.news_id', 'like', '%' . $request->keyboard . '%')
+                        ->orWhere('zwf.title','like','%' . $request->keyboard . '%')
+                        ->orWhere('zlq.writer','like','%' . $request->keyboard . '%')
+                        ->orWhere('zlq.befrom','like','%' . $request->keyboard . '%');
+                }else {
+                    if ($request->show == 'title' || $request->show == 'news_id') {
+                        $query
+                            ->orWhere('zwf.' . $request->show, 'like', '%' . $request->keyboard . '%');
+                    } else if ($request->show == 'writer' || $request->show == 'befrom') {
+                        $query
+                            ->orWhere('zlq.' . $request->show, 'like', '%' . $request->keyboard . '%');
+                    }
+                }
+            })
+            ->where(function($query) use ($request)
+            {
+                if($request ->infolday != 1)
+                {
+                    $d = time();
+                    $sT = $d - $request ->infolday;
+                    $query
+                        ->orWhere('zwf.truetime','>',$sT);
+                }
+            })
+            ->paginate(1);;
+        $queries = DB::getQueryLog();
+        //var_dump($news->toArray(),$queries);
+
+        $data['news'] = $news->toArray();
+        $data['search'] = ['keyboard'=>$request->keyboard,'show'=>$request ->show,'infolday'=>$request ->infolday ];
+        return view('admin.information.index')->with([
+            'newses' => $data['news'],
+            'search' => $data['search']
+        ]);
+        //return $data;
 
     }
 

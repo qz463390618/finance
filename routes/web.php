@@ -93,5 +93,44 @@ Route::group(['prefix'=>'admin'],function()
         Route::post('doEdit','Admin\InformationController@doEdit');
         //删除
         Route::post('del','Admin\InformationController@delNews');
+
+        //查询数据
+        Route::get('search','Admin\InformationController@search');
     });
+    //投资者教育
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'education'],function()
+    {
+        //显示信息中心文章列表
+        Route::get('/','Admin\EducationController@index');
+        //显示添加文章页面
+        Route::get('add','Admin\EducationController@showAdd');
+        //执行添加文章
+        Route::post('doAdd','Admin\EducationController@doAdd');
+        //显示修改文章页面
+        Route::get('edit/{id}','Admin\EducationController@showEdit');
+        //执行修改
+        Route::post('doEdit','Admin\EducationController@doEdit');
+        //删除
+        Route::post('del','Admin\EducationController@delNews');
+    });
+    //联系我们
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'contact'],function()
+    {
+        //显示信息中心文章列表
+        Route::get('/','Admin\ContactController@index');
+        //显示添加文章页面
+        Route::get('add','Admin\ContactController@showAdd');
+        //执行添加文章
+        Route::post('doAdd','Admin\ContactController@doAdd');
+        //显示修改文章页面
+        Route::get('edit/{id}','Admin\ContactController@showEdit');
+        //执行修改
+        Route::post('doEdit','Admin\ContactController@doEdit');
+        //删除
+        Route::post('del','Admin\ContactController@delNews');
+    });
+
+
+
+
 });

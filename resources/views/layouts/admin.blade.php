@@ -51,6 +51,8 @@
         <li><a href="{{url('admin/column')}}"><i class="icon icon-th"></i> <span>栏目管理</span></a></li>
         <li><a href="{{url('admin/class')}}"><i class="icon icon-th"></i> <span>分类管理</span></a></li>
         <li><a href="{{url('admin/information')}}"><i class="icon icon-th"></i> <span>信息中心</span></a></li>
+        <li><a href="{{url('admin/education')}}"><i class="icon icon-th"></i> <span>投资者教育</span></a></li>
+        <li><a href="{{url('admin/contact')}}"><i class="icon icon-th"></i> <span>联系我们</span></a></li>
         {{--<li class="submenu">
             <a href="#"><i class="icon icon-th-list"></i> <span>信息中心</span> <span class="label">3</span></a>
             <ul>
