@@ -112,6 +112,8 @@ Route::group(['prefix'=>'admin'],function()
         Route::post('doEdit','Admin\EducationController@doEdit');
         //删除
         Route::post('del','Admin\EducationController@delNews');
+        //查询数据
+        Route::get('search','Admin\EducationController@search');
     });
     //联系我们
     Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'contact'],function()
@@ -128,6 +130,8 @@ Route::group(['prefix'=>'admin'],function()
         Route::post('doEdit','Admin\ContactController@doEdit');
         //删除
         Route::post('del','Admin\ContactController@delNews');
+        //查询数据
+        Route::get('search','Admin\ContactController@search');
     });
 
 

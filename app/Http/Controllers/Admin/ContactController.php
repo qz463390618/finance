@@ -13,6 +13,12 @@ class ContactController extends Controller
     public function index()
     {
 
+        $contact = DB::table('zwf_admin_contact as zwf')
+            ->select('zwf.news_id','zwf.department','zwf.position','zwf.truetime')
+            ->latest('news_id')
+            ->paginate(10);
+
+
         $contact = Contact::get();
 
         //var_dump($contact -> toArray());
@@ -76,5 +82,52 @@ class ContactController extends Controller
             echo $e;
             //return '<script>alert("添加文章失败");window.location.href="/admin/contact"</script>';
         }
+    }
+
+
+    //查询数据
+    public function search(Request $request)
+    {
+        $keyword = $request ->keyword;
+        $show = $request ->show;
+        $infolday = $request -> infolday;
+        $news = DB::table('zwf_admin_contact as zwf')
+            ->select('zwf.news_id','zwf.department','zwf.position','zwf.truetime')
+            -> where(function($query) use ($request) {
+                if ($request->show == 0 )
+                {
+                    $query
+                        ->orWhere('zwf.news_id', 'like', '%' . $request->keyboard . '%')
+                        ->orWhere('zwf.department','like','%' . $request->keyboard . '%')
+                        ->orWhere('zwf.position','like','%' . $request->keyboard . '%');
+                }else {
+                    $query
+                        ->orWhere('zwf.' . $request->show, 'like', '%' . $request->keyboard . '%');
+                    /*if ($request->show == 'title' || $request->show == 'news_id') {
+                        $query
+                            ->orWhere('zwf.' . $request->show, 'like', '%' . $request->keyboard . '%');
+                    } else if ($request->show == 'writer' || $request->show == 'befrom') {
+                        $query
+                            ->orWhere('zlq.' . $request->show, 'like', '%' . $request->keyboard . '%');
+                    }*/
+                }
+            })
+            ->where(function($query) use ($request)
+            {
+                if($request ->infolday != 1)
+                {
+                    $d = time();
+                    $sT = $d - $request ->infolday;
+                    $query
+                        ->orWhere('zwf.truetime','>',$sT);
+                }
+            })
+            ->paginate(10);
+        $data['news'] = $news;
+        $data['search'] = ['keyboard'=>$request->keyboard,'show'=>$request ->show,'infolday'=>$request ->infolday ];
+        return view('admin.contact.index')->with([
+            'newses' => $data['news'],
+            'search' => $data['search']
+        ]);
     }
 }

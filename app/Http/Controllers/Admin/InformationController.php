@@ -19,38 +19,25 @@ class InformationController extends Controller
     //显示文章
     public function index()
     {
-        /*$news = Information::latest('news_id')->get();
-        if(!$news->isEmpty())
-        {
-            $news = $news->toArray();
-            $mark = 0;
-            foreach($news as $v)
-            {
-                $writer = Information::find($v['news_id'])->newData;
-                $news[$mark]['writer'] = $writer -> writer;
-                $mark++;
-            }
-        }*/
-        /*return view('admin.information.index')->with([
-            'newses' => $news
-        ]);*/
-
         $news = DB::table('zwf_admin_information as zwf')
             ->join('zwf_admin_information_data as zlq','zwf.news_id','=','zlq.news_id')
             ->select('zwf.news_id','zwf.title','zwf.onclick','zwf.column_id','zwf.truetime','zlq.writer','zlq.befrom')
             ->latest('news_id')
-            ->paginate(1);
+            ->paginate(10);
         //var_dump($news->toArray());
+        foreach($news as &$v)
+        {
 
+            $column_name = Column::select(['column_name'])->find($v -> column_id)->column_name;
+            //var_dump($column_name);
+            $v->column_name = $column_name;
+        }
+        //dump($news);
+        //die;
         return view('admin.information.index')->with([
             'newses' => $news,
             'search' => []
         ]);
-
-
-
-
-
     }
     //显示添加文章
     public function showAdd()
@@ -194,7 +181,6 @@ class InformationController extends Controller
     //搜索文章
     public function search(Request $request)
     {
-
         //查看sql语句
         DB::enableQueryLog();
         //var_dump($request ->toArray());
@@ -232,17 +218,23 @@ class InformationController extends Controller
                         ->orWhere('zwf.truetime','>',$sT);
                 }
             })
-            ->paginate(1);;
+            ->paginate(10);
+        foreach($news as &$v)
+        {
+
+            $column_name = Column::select(['column_name'])->find($v -> column_id)->column_name;
+            //var_dump($column_name);
+            $v->column_name = $column_name;
+        }
         $queries = DB::getQueryLog();
         //var_dump($news->toArray(),$queries);
 
-        $data['news'] = $news->toArray();
+        $data['news'] = $news;
         $data['search'] = ['keyboard'=>$request->keyboard,'show'=>$request ->show,'infolday'=>$request ->infolday ];
         return view('admin.information.index')->with([
             'newses' => $data['news'],
             'search' => $data['search']
         ]);
-        //return $data;
 
     }
 

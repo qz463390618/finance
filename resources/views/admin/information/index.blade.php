@@ -23,7 +23,7 @@
                 <button class="btn btn-large" onclick="window.location.href='{{url('admin/information/add')}}'">添加资讯</button>
             </p>
             <div class="" style="float: left;width:80%;height:44px;text-align: -webkit-right;line-height: 44px;">
-                <form action="{{url('/admin/information/search')}}" id="searchForm" onsubmit="return searchData();">
+                <form action="{{url('/admin/information/search')}}" id="searchForm" {{--onsubmit="return searchData();"--}}>
                     搜索:
                     <select style="margin-bottom: 0;width: 100px;">
                         <option value="0" selected="">不限属性</option>
@@ -75,11 +75,13 @@
                             </thead>
                             <tbody>
                                 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+
                                 @foreach($newses as $news)
+
                                     <tr>
                                         <td>{{$news -> news_id}}</td>
                                         <td>{{$news ->title}}</td>
-                                        <td>{{$news->column_id}}</td>
+                                        <td>{{$news->column_name}}</td>
                                         <td>{{$news ->writer}}</td>
                                         <td>{{date('Y-m-d H:i:s',$news ->truetime)}}</td>
                                         <td>{{$news->onclick}}</td>
@@ -91,13 +93,30 @@
 
                     </div>
                     <div style="text-align: center;">
-                        {{$newses ->appends(
+                      {{--  {{$newses ->appends(
                             [
                                 'show'=> isset($search['show']) ? $search['show']: '',
                                 'keyboard'=> isset($search['keyboard']) ? $search['keyboard']: '',
                                 'infolday'=> isset($search['infolday']) ? $search['infolday']: '',
                             ]
-                        )-> links()}}
+                        )-> links()}}--}}
+                        <?php
+
+                            if(!empty($search))
+                            {
+                                echo $newses ->appends(
+                                    [
+                                        'show'=> isset($search['show']) ? $search['show']: '',
+                                        'keyboard'=> isset($search['keyboard']) ? $search['keyboard']: '',
+                                        'infolday'=> isset($search['infolday']) ? $search['infolday']: '',
+                                    ]
+                                )-> links();
+                            }else{
+                                echo $newses -> links();
+                            }
+
+
+                        ?>
                     </div>
                 </div>
             </div>

@@ -18,9 +18,38 @@
         <a href="#" class="current">信息中心</a>
     </div>
     <div class="container-fluid">
-        <p style="margin-top: 15px;">
-            <button class="btn btn-large" onclick="window.location.href='{{url('admin/education/add')}}'">添加资讯</button>
-        </p>
+        <div class="clearfix" style="margin-top: 15px;">
+            <p class="" style="float: left; width:20%;" >
+                <button class="btn btn-large" onclick="window.location.href='{{url('admin/education/add')}}'">添加资讯</button>
+            </p>
+            <div class="" style="float: left;width:80%;height:44px;text-align: -webkit-right;line-height: 44px;">
+                <form action="{{url('/admin/education/search')}}" id="searchForm" {{--onsubmit="return searchData();"--}}>
+                    搜索:
+                    <select style="margin-bottom: 0;width: 100px;">
+                        <option value="0" selected="">不限属性</option>
+                    </select>
+                    <input name="keyboard" type="text" id="keyboard" value="" size="16" style="margin-bottom: 0;">
+                    <select name="show" style="margin-bottom: 0; width: 110px;">
+                        <option value="0" selected="">不限字段</option>
+                        <option value="title">标题</option>
+                        <option value="writer">作者</option>
+                        <option value="befrom">来源</option>
+                        <option value="news_id">id</option>
+                    </select>
+                    <select name="infolday" style="margin-bottom: 0;width: 110px;">
+                        <option value="1">全部时间</option>
+                        <option value="86400">1 天</option>
+                        <option value="172800">2 天</option>
+                        <option value="604800">1 周</option>
+                        <option value="2592000">1 个月</option>
+                        <option value="7948800">3 个月</option>
+                        <option value="15897600">6 个月</option>
+                        <option value="31536000">1 年</option>
+                    </select>
+                    <input type="submit" name="Submit2" value="搜索">
+                </form>
+            </div>
+        </div>
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget-box">
@@ -47,13 +76,13 @@
                                 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
                                 @foreach($newses as $news)
                                     <tr>
-                                        <td>{{$news ['news_id']}}</td>
-                                        <td>{{$news [ 'title']}}</td>
-                                        <td>{{$news['column_id']}}</td>
-                                        <td>{{$news ['writer']}}</td>
-                                        <td>{{date('Y-m-d H:i:s',$news [ 'truetime'])}}</td>
-                                        <td>{{$news['onclick']}}</td>
-                                        <td><a href="{{url('/admin/education/edit').'/'.$news ['news_id']}}">修改</a><span style="margin:0 10px;">|</span><a href="javascript:delNews({{$news ['news_id']}})">删除</a></td>
+                                        <td>{{$news -> news_id}}</td>
+                                        <td>{{$news ->title}}</td>
+                                        <td>{{$news->column_name}}</td>
+                                        <td>{{$news ->writer}}</td>
+                                        <td>{{date('Y-m-d H:i:s',$news ->truetime)}}</td>
+                                        <td>{{$news->onclick}}</td>
+                                        <td><a href="{{url('/admin/education/edit').'/'.$news ->news_id}}">修改</a><span style="margin:0 10px;">|</span><a href="javascript:delNews({{$news ->news_id}})">删除</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -61,7 +90,23 @@
 
                     </div>
                     <div style="text-align: center;">
-                        {{--{{$data -> links()}}--}}
+                        <?php
+
+                        if(!empty($search))
+                        {
+                            echo $newses ->appends(
+                                [
+                                    'show'=> isset($search['show']) ? $search['show']: '',
+                                    'keyboard'=> isset($search['keyboard']) ? $search['keyboard']: '',
+                                    'infolday'=> isset($search['infolday']) ? $search['infolday']: '',
+                                ]
+                            )-> links();
+                        }else{
+                            echo $newses -> links();
+                        }
+
+
+                        ?>
                     </div>
                 </div>
             </div>
