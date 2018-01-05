@@ -133,8 +133,29 @@ Route::group(['prefix'=>'admin'],function()
         //查询数据
         Route::get('search','Admin\ContactController@search');
     });
-
+    //首页管理
+    Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'index'],function()
+    {
+        //轮播图管理
+        Route::group(['middleware' => ['admin.check.id','admin.check.permissions'],'prefix'=>'slide'],function()
+        {
+            //显示轮播图列表
+            Route::get('/','Admin\BannerController@index');
+            //显示添加轮播图列表
+            Route::get('add','Admin\BannerController@showAdd');
+            //执行添加轮播图
+            Route::post('doAdd','Admin\BannerController@doAdd');
+            //删除
+            Route::post('del','Admin\BannerController@delNews');
+        });
+    });
 
 
 
 });
+
+
+//前台页面
+
+//首页
+//Route::get('/',);

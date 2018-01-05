@@ -15,8 +15,8 @@
     </div>
     <div id="breadcrumb">
         <a href="#" title="返回后台首页" class="tip-bottom"><i class="icon-home"></i> 后台</a>
-        <a href="{{url('/admin/information')}}" class="tip-bottom">文章列表</a>
-        <a href="#" class="current">添加文章</a>
+        <a href="{{url('/admin/')}}" class="tip-bottom">文章列表</a>
+        <a href="#" class="current">修改文章</a>
     </div>
     <div class="container-fluid">
         <div class="row-fluid">
@@ -29,68 +29,59 @@
                         <h5>编辑文章</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form action="{{url('/admin/education/doEdit')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <form action="{{url('/admin/contact/doEdit')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" name="news_id" value="{{$news->news_id}}">
                             <div class="control-group">
-                                <label class="control-label">文章名</label>
+                                <label class="control-label">招聘部门</label>
                                 <div class="controls">
-                                    <input type="text" name="articles_name" placeholder="请输入文章名" value="{{old('articles_name') ? old('articles_name'):$news -> title }}"/>
+                                    <input type="text" name="department" placeholder="请输入需要招聘的部门" value="{{old('department') ? old('department'): $news -> department}}"/>
                                     @if(count($errors)>0)
-                                        <span class="help-block">{{$errors -> first('articles_name')}}</span>
+                                        <span class="help-block">{{$errors -> first('department')}}</span>
                                     @endif
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">文章类型</label>
+                                <label class="control-label">招聘职位</label>
                                 <div class="controls">
-                                    <select class="form-control" name="class_id">
-                                        @foreach($allClass as $class)
-                                            <option value="{{$class->class_id}}" <?= $news -> class_id == $class->class_id ? 'selected': ''?>>{{$class -> class_name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" name="position" placeholder="请输入需要招聘的职位" value="{{old('position') ? old('position'): $news -> position}}"/>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('position')}}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">所属栏目</label>
+                                <label class="control-label">工作职责</label>
                                 <div class="controls">
-                                    <select class="form-control" name="parent">
-                                        @foreach($columns as $column)
-                                            <option value="{{$column->column_id}}" <?= $news -> column_id == $column->column_id ? 'selected': ''?> >{{$column -> column_name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <textarea name="duty" rows="7"><?php echo  old('duty') ? old('duty'):$news -> duty ?></textarea>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('duty')}}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">作者</label>
+                                <label class="control-label">工作需求</label>
                                 <div class="controls">
-                                    <input type="text" name="writer" placeholder="作者" value="{{old('writer_1') ?old('writer_1') : $newsInfo->writer}}" style="width: 10%;"/>
-                                    <select class="form-control weiter_select">
-                                        <option></option>
-                                        @foreach($adminUsers as $writer)
-                                            <option>{{$writer -> user_account}}</option>
-                                        @endforeach
-                                    </select>
+                                    <textarea name="demand" rows="7"><?= old('demand') ? old('demand'):$news -> demand ?></textarea>
+                                    @if(count($errors)>0)
+                                        <span class="help-block">{{$errors -> first('demand')}}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">来源</label>
+                                <label class="control-label">创建时间</label>
                                 <div class="controls">
-                                    <input type="text" name="news_befrom" placeholder="来源网站" value="{{old('befrom') ? old('befrom') : $newsInfo -> befrom}}" style="width: 10%;"/>
-                                    <select class="form-control befrom_select">
-                                        <option></option>
-                                        <option>南亚国际</option>
-                                    </select>
+                                    <input type="text" name="truetime"  value="{{date('Y-m-d H:i:s',$news->truetime)}}" readonly/>
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">正文内容</label>
-                                <div class="controls" style="margin-right: 17%;">
-                                    <script id="zlqEdit" name="news_content" type="text/plain"><?php echo $newsInfo -> newstext?></script>
+                                <label class="control-label">最后修改时间</label>
+                                <div class="controls">
+                                    <input type="text" name="truetime"  value="{{date('Y-m-d H:i:s',$news->lastdotime)}}" readonly/>
                                 </div>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">编辑</button>
+                                <button type="button" class="btn btn-primary submit">编辑</button>
                             </div>
                         </form>
                     </div>
@@ -100,20 +91,37 @@
     </div>
 @endsection
 @section('my-js')
-    <script src="{{url('plugIn/editor/ueditor.config.js')}}"></script>
-    <script src="{{url('plugIn/editor/ueditor.all.js')}}"></script>
     <script src="{{url('js/admin/jquery.ui.custom.js')}}"></script>
     <script src="{{url('js/admin/bootstrap.min.js')}}"></script>
     <script src="{{url('js/admin/bootstrap-colorpicker.js')}}"></script>
     <script src="{{url('js/admin/jquery.uniform.js')}}"></script>
     <script src="{{url('js/admin/unicorn.form_common.js')}}"></script>
-    <!-- 实例化编辑器 -->
-    <script type="text/javascript">
-        var ue = UE.getEditor('zlqEdit',{
-            initialFrameHeight:500,
-            scaleEnabled:true,
-            enterTag : 'br'
+
+    <script src="{{url('js/admin/addNews.js')}}"></script>
+    <!--格式话文本-->
+    <script>
+        $(function()
+        {
+            var demand1 = $('textarea[name=demand]').val();
+            var duty1 = $('textarea[name=duty]').val();
+            var reg=new RegExp("<br>","g"); //创建正则RegExp对象
+
+            duty1 = duty1.replace(new RegExp("<br>", "gm"), "\n");
+            demand1 = demand1.replace(new RegExp("<br>", "gm"), "\n");
+            console.log(demand1);
+            console.log(duty1);
+            $('textarea[name=demand]').val(demand1);
+            $('textarea[name=duty]').val(duty1);
+
+        });
+        $('button.submit').click(function(){
+            var demand = $('textarea[name=demand]').val();
+            var duty = $('textarea[name=duty]').val();
+            demand = demand.replace(new RegExp("\n", "gm"), "<br>");
+            duty = duty.replace(new RegExp("\n", "gm"), "<br>");
+            $('textarea[name=demand]').val(demand);
+            $('textarea[name=duty]').val(duty);
+            $('form').submit();
         });
     </script>
-    <script src="{{url('js/admin/addNews.js')}}"></script>
 @endsection

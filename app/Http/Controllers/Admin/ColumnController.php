@@ -13,13 +13,13 @@ class ColumnController extends Controller
     //显示栏目管理列面
     public function index()
     {
-        $columns = Column::latest('column_id')->paginate(10);
+        $columns = Column::where('state',1)->latest('column_id')->paginate(10);
         return view('admin.column.column')->with('data',$columns);
     }
     //显示添加页面
     public function showAdd()
     {
-        $columns = Column::where('column_pid',0)->get();
+        $columns = Column::where('column_pid',0)->where('state',1)->get();
         return view('admin.column.addColumn')->with([
             'columns' => $columns,
         ]);
@@ -86,7 +86,7 @@ class ColumnController extends Controller
     public function showEdit($id)
     {
         //获取所有的一级栏目
-        $columns = Column::where('column_pid',0)->get();
+        $columns = Column::where('column_pid',0)->where('state',1)->get();
         $columnInfo = Column::where('column_id',$id)->first();
         return view('admin.column.editColumn')->with([
             'columns' => $columns,
@@ -148,7 +148,10 @@ class ColumnController extends Controller
                 return '108';
             }
         }
-        Column::where('column_id',$request->id)->delete();
+        //Column::where('column_id',$request->id)->delete();
+        Column::where('column_id',$request->id)->update([
+            'state' => 2
+        ]);
         return '200';
     }
 }

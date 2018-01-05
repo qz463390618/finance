@@ -20,6 +20,7 @@ class EducationController extends Controller
             ->join('zwf_admin_education_data as zlq','zwf.news_id','=','zlq.news_id')
             ->select('zwf.news_id','zwf.title','zwf.onclick','zwf.column_id','zwf.truetime','zlq.writer','zlq.befrom')
             ->latest('news_id')
+            ->where('state',1)
             ->paginate(10);
         //var_dump($news->toArray());
         foreach($news as &$v)
@@ -41,9 +42,9 @@ class EducationController extends Controller
     public function showAdd()
     {
         //查询所有的分类
-        $classes = zClass::get();
+        $classes = zClass::where('state',1)->get();
         //查询当前栏目的所有子栏目
-        $columns = Column::where('column_pid', 8)->get();
+        $columns = Column::where('column_pid', 8)->where('state',1)->get();
         //查询出所有后台的用户
         $adminUsers = User::get();
         return view('admin.education.addNews')->with([
@@ -152,8 +153,13 @@ class EducationController extends Controller
     {
         DB::beginTransaction();
         try {
-            $mark = Education::where('news_id', $request->post('id'))->delete();
-            EducationData::where('news_id', $request->post('id'))->delete();
+            /*$mark = Education::where('news_id', $request->post('id'))->delete();
+            EducationData::where('news_id', $request->post('id'))->delete();*/
+            $mark = Information::where('news_id',$request->post('id'))->update([
+                'state' => 2,
+                'lastdotime' => time()
+
+            ]);
             DB::commit();
             return $mark;
         } catch (\Exception $e) {
@@ -200,6 +206,7 @@ class EducationController extends Controller
                         ->orWhere('zwf.truetime', '>', $sT);
                 }
             })
+            ->where('state',1)
             ->paginate(10);
         foreach ($news as &$v) {
 

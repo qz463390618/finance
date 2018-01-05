@@ -114,6 +114,7 @@ class UserController extends Controller
             $user = User::find($request->user_id);
 
             $role_ids = [];
+            /*var_dump($request->toArray());die;*/
             if(!empty($request->post('user_role')))
             {
                 //把角色字符串换成角色数组形式
@@ -125,6 +126,7 @@ class UserController extends Controller
 
                 }
             }
+            //var_dump($role_ids);die;
             //删除用户所有角色
             $user -> roles()->detach();
             //添加用户角色

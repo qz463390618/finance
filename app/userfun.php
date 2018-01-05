@@ -32,6 +32,7 @@ function getRights($role_id)
 //获取当前用户角色
 function getRoles($user_id)
 {
+    //var_dump($user_id);
     //根据用户id 查询出所拥有的权限
     foreach(\App\Model\Admin\User::find($user_id)->roles()->get() as $role)
     {

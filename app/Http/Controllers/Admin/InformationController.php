@@ -22,6 +22,7 @@ class InformationController extends Controller
         $news = DB::table('zwf_admin_information as zwf')
             ->join('zwf_admin_information_data as zlq','zwf.news_id','=','zlq.news_id')
             ->select('zwf.news_id','zwf.title','zwf.onclick','zwf.column_id','zwf.truetime','zlq.writer','zlq.befrom')
+            ->where('state',1)
             ->latest('news_id')
             ->paginate(10);
         //var_dump($news->toArray());
@@ -167,8 +168,13 @@ class InformationController extends Controller
     {
         DB::beginTransaction();
         try{
-            $mark =  Information::where('news_id',$request->post('id'))->delete();
-            InformationData::where('news_id',$request->post('id'))->delete();
+           /* $mark =  Information::where('news_id',$request->post('id'))->delete();
+            InformationData::where('news_id',$request->post('id'))->delete();*/
+            $mark = Information::where('news_id',$request->post('id'))->update([
+                'state' => 2,
+                'lastdotime' => time()
+
+            ]);
             DB::commit();
             return $mark;
         }catch (\Exception $e){
@@ -218,6 +224,7 @@ class InformationController extends Controller
                         ->orWhere('zwf.truetime','>',$sT);
                 }
             })
+            ->where('state',1)
             ->paginate(10);
         foreach($news as &$v)
         {

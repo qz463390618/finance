@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', '信息中心')
+@section('title', '轮播图管理')
 @section('my-css')
 
 @endsection
@@ -20,10 +20,10 @@
     <div class="container-fluid">
         <div class="clearfix" style="margin-top: 15px;">
             <p class="" style="float: left; width:20%;" >
-                <button class="btn btn-large" onclick="window.location.href='{{url('admin/contact/add')}}'">添加资讯</button>
+                <button class="btn btn-large" onclick="window.location.href='{{url('admin/index/slide/add')}}'">添加轮播图</button>
             </p>
             <div class="" style="float: left;width:80%;height:44px;text-align: -webkit-right;line-height: 44px;">
-                <form action="{{url('/admin/contact/search')}}" id="searchForm" {{--onsubmit="return searchData();"--}}>
+                <form action="{{url('/admin/index/slide/search')}}" id="searchForm" {{--onsubmit="return searchData();"--}}>
                     搜索:
                     <select style="margin-bottom: 0;width: 100px;">
                         <option value="0" selected="">不限属性</option>
@@ -31,12 +31,13 @@
                     <input name="keyboard" type="text" id="keyboard" value="" size="16" style="margin-bottom: 0;">
                     <select name="show" style="margin-bottom: 0; width: 110px;">
                         <option value="0" selected="">不限字段</option>
-                        <option value="title">部门</option>
-                        <option value="writer">职位</option>
+                        <option value="title">标题</option>
+                        <option value="writer">作者</option>
+                        <option value="befrom">来源</option>
                         <option value="news_id">id</option>
                     </select>
-                    <select name="infolday" style="margin-bottom: 0;width: 110px;" >
-                        <option value="1" >全部时间</option>
+                    <select name="infolday" style="margin-bottom: 0;width: 110px;">
+                        <option value="1">全部时间</option>
                         <option value="86400">1 天</option>
                         <option value="172800">2 天</option>
                         <option value="604800">1 周</option>
@@ -56,30 +57,33 @@
 								<span class="icon">
 									<i class="icon-th"></i>
 								</span>
-                        <h5>招聘列表</h5>
+                        <h5>资讯列表</h5>
                     </div>
                     <div class="widget-content nopadding">
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>id</th>
-                                <th>招聘部门</th>
-                                <th>招聘职位</th>
-                                <th>发布时间</th>
+                                <th>标题</th>
+                                <th>链接</th>
+                                <th>跳转内容</th>
+                                <th>添加时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-                                @foreach($newses as $v)
-                                    <tr>
-                                        <td>{{$v -> news_id}}</td>
-                                        <td>{{$v -> department}}</td>
-                                        <td>{{$v -> position}}</td>
-                                        <td>{{date('Y-m-d H:i:s',$v -> truetime)}}</td>
-                                        <td><a href="{{url('/admin/contact/edit').'/'.$v -> news_id}}">修改</a><span style="margin:0 10px;">|</span><a href="javascript:delNews({{$v -> news_id}})">删除</a></td>
-                                    </tr>
-                                @endforeach
+                            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+                            @foreach($news as $new)
+                                <tr>
+                                    <td>{{$new -> id}}</td>
+                                    <td>{{$new -> title}}</td>
+                                    <td>{{$new -> key_word}}</td>
+                                    <td>{{$new -> type == 1 ? '导向文章':($new -> type == 0 ? '无导向':'导向专题' ) }}</td>
+                                    <td>{{date('Y-m-d H:i:s',$new -> update_time)}}</td>
+                                    {{--<td><a href="{{url('/admin/education/edit').'/'.$news ->news_id}}">修改</a><span style="margin:0 10px;">|</span><a href="javascript:delNews({{$news ->news_id}})">删除</a></td>--}}
+                                    <td><a href="javascript:delNews({{$new ->id}})">删除</a></td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
 
@@ -87,7 +91,7 @@
                     <div style="text-align: center;">
                         <?php
 
-                        if(!empty($search))
+                        /*if(!empty($search))
                         {
                             echo $newses ->appends(
                                 [
@@ -98,9 +102,7 @@
                             )-> links();
                         }else{
                             echo $newses -> links();
-                        }
-
-
+                        }*/
                         ?>
                     </div>
                 </div>
@@ -121,11 +123,12 @@
                     _token:$('#token').val()
                 };
                 $.ajax({
-                    url:'/admin/contact/del',
+                    url:'/admin/index/slide/del',
                     type:'post',
                     async:false,
                     data:data,
                     success:function(data){
+                        console.log(data);
                         if(data == 1)
                         {
                             location.replace(location.href);

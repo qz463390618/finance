@@ -12,7 +12,7 @@ class ClassController extends Controller
 {
     public function index()
     {
-        $classes = zClass::latest('class_id')->paginate(10);
+        $classes = zClass::where('state',1)->latest('class_id')->paginate(10);
         return view('admin.class.class')->with([
             'data'=>$classes
         ]);
@@ -94,7 +94,10 @@ class ClassController extends Controller
     {
         DB::beginTransaction();
         try{
-           $mark =  zClass::where('class_id',$request->post('id'))->delete();
+           //$mark =  zClass::where('class_id',$request->post('id'))->delete();
+           $mark = zClass::where('class_id',$request->post('id'))->update([
+               'state' => 2
+           ]);
             DB::commit();
             return $mark;
         }catch(\Exception $e){

@@ -66,7 +66,7 @@
                                 <label class="control-label">所拥有权限</label>
 
                                 <div class="controls">
-                                    <select multiple="">
+                                    <select multiple="" name="user_role">
                                         @foreach($roles as $role)
 
                                             <option <?= in_array($role->role_id,$haveRoles)

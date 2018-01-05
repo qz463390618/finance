@@ -1,0 +1,559 @@
+/*轮播图*/
+.content {
+    position: absolute;
+    z-index: 1;
+    height: 560px;
+    width: 100%;
+}
+.b-one-1 {
+    background: url(../images/1474879932787081915.jpg) no-repeat;
+    width: 1920px;
+    height: 560px;
+}
+.b-one-2 {
+    background: url(../images/1481792574960015694.png) no-repeat;
+    height: 560px;
+    width: 1920px;
+}
+.b-one-3 {
+    background: url(../images/1472608773169010049.png) no-repeat;
+    height: 560px;
+    width: 1920px;
+}
+.b-one-4 {
+    background: url(../images/1472618453165044335.png) no-repeat;
+    height: 560px;
+    width: 1920px;
+}
+.b-one-5 {
+    background: url(../images/1474880284609090291.jpg) no-repeat;
+    height: 560px;
+    width: 1920px;
+}
+.sliderPic {
+  width: 100%;
+  height:560px;
+  overflow: hidden;
+  margin: 10px auto;
+}
+.sliderPic ul {
+  width:9600px;
+  position: relative;
+}
+.sliderPic ul li {
+   float: left;
+
+}
+/*.sliderSquare {
+    width:500px;
+    height:50px;
+}*/
+.sliderSquare ul {
+    width: 100%;
+    height: 12px;
+    position: relative;
+    top: -68px;
+    text-align: center;
+}
+.sliderSquare ul li {
+    width: 10px;
+    height: 10px;
+    background-color:rgba(0,0,0,0);
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    left: 2px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+.sliderSquare .active {
+    background-color: #fff;
+}
+/*内容*/
+.main {
+    margin-top: 700px;
+    width: 100%;
+}
+.main .view {
+    width: 1280px;
+    margin: 0 auto;
+    height: 650px;
+    padding-bottom: 140px;
+}
+/*上市品种*/
+.view {
+    width: 100%;
+}
+.view .v_Title {
+    font-size: 30px;
+    padding-bottom: 110px;
+    text-align: center;
+    letter-spacing: 20px;
+}
+.otherColor {
+    color: #a61e2d;
+}
+/*新闻*/
+.news {
+    height: 600px;
+    width: 100%;
+    background: url(../images/color.png) no-repeat;
+     padding-bottom: 24px;
+}
+.newsCenter {
+    width: 1280px;
+    margin: 0 auto;
+}
+.news .n_Title {
+    font-size: 30px;
+    padding-bottom: 110px;
+    text-align: center;
+    letter-spacing: 20px;
+}
+.news .news-left {
+    font-size: 14px;
+    width: 45%;
+    height: 266px;
+    float: left;
+    border: 1px solid #a61e2d;
+    margin-left: 3%;
+}
+.border {
+    width: 125px;
+    height: 35px;
+    background: #a61e2d;
+    color: #fff;
+    text-align: center;
+    line-height: 33px;
+    position: relative;
+    z-index: 1;
+    top: 7px;
+    left: 8px;
+    letter-spacing: 5px;
+}
+.line {
+    height: 125px;
+    height: 35px;
+    background: #f5f5f5;
+    border:1px solid #a61e2d;
+    z-index: 2;
+    display: inline-block;
+    top: -24px;
+    left: 24px;
+    position: absolute;
+}
+.news-left .list_bottom {
+    z-index: 3;
+    position: absolute;
+    margin-top: 45px;
+}
+.list_bottom {
+    height: 251px;
+    margin-left: 50px;
+}
+.list_bottom ul {
+    overflow: hidden;
+}
+.list_bottom ul li {
+    width: 521px;
+    clear: both;
+    height: 31px;
+    line-height: 31px;
+    display: list-item;
+    color: #000;
+}
+.list_bottom ul li span {
+    font-size: 13px;
+    padding-right: 5px;
+    color: #000;
+}
+.list_bottom ul li a {
+    font-size: 13px;
+    float: left;
+    color: #000;
+    width: 410px;
+    height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.newsfooter a {
+    color: #fff;
+    font-size: 12px;
+}
+.newsfooter {
+    width: 117px;
+    height: 33px;
+    background: #a61e2d;
+    margin: 301px auto;
+    text-align: center;
+    line-height: 28px;
+    letter-spacing: 5px;
+}
+.news .news-right {
+    font-size: 14px;
+    width: 45%;
+    height: 266px;
+    float: left;
+    border: 1px solid #a61e2d;
+    margin-left: 4%;
+}
+.other .w-img {
+    width: 150px;
+    height: 115px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.other .cnt-right {
+    width: 100%;
+    height: 115px;
+    background: #FFFFFF;
+    margin-top: 45px;
+}
+.other .cnt-right span {
+    height: 100px;
+    width: 320px;
+    position: relative;
+    float: left;
+}
+.news-right .ml5 a {
+    color: #BC9B59;
+    font-size: 13px;
+    line-height: 14px;
+    margin-top: 18px;
+    margin-left: 10px;
+}
+.news-right .ml5 h1 {
+    width: 320px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #BBBBBB;
+    margin-left: 10px;
+    float: left;
+    overflow: hidden;
+    height: 40px;
+    text-overflow: ellipsis;
+}
+.list_bottom ul .wTitle:hover {
+    text-decoration: none;
+    background-color: #a61e2d;
+    padding-left: 5px;
+    transition:all .3s ease-in 0s;
+    color: #fff;
+}
+/*.news a:hover {
+    color: #fff;
+}*/
+/*切换框  */
+.menu li {
+    text-align: center;
+    float: left;
+    padding: 5px;
+    margin-right: 2px;
+    width: 120px;
+    cursor: pointer;
+    background-color:#a61e2d;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.menu  a {
+    color: #fff;
+}
+.wrapper .active{background-color:#651b23!important;}
+
+/*合作伙伴*/
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+} 
+.company {
+    width: 100%;
+    margin-bottom: 110px;
+}
+.company .comCenter {
+    width: 1280px;
+    margin: 0 auto;
+}
+.company .cTitle {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 20px;
+}
+.company .font {
+    margin-top: 20px;
+}
+.company .cText1,.cText2 {
+    text-align: center;
+    color: #8B8B8B;
+    margin-top: 5px;
+    font-size: 10px;
+}
+.banner {
+    position: relative;
+    width: 1280px;
+    margin: 0 auto;
+    height: 240px;
+    overflow: hidden;
+    margin-top: 110px;
+}
+.banner .bannerCon {
+    position: absolute;
+    top: 0;;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+.bannerCon .imgList {
+    position: absolute;
+    width: 90%;
+}
+.bannerCon .imgList li {
+    float: left;
+    width: 320px;
+    height: 240px;
+    text-align: center;
+    border: solid 1px #e1e1e1;
+    background-color: #fff;
+}
+.bannerCon .imgList li a {
+     position: relative;
+     display: block;
+     height: 100%;
+}
+.prev,  .next {
+    position: absolute;
+    width: 34px;
+    height: 61px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-top: -168px;
+    z-index: 666;
+    margin-left: -100px;
+}
+.prev{
+    background-image:url(../images/pt_pre.png); 
+}
+.next{
+    background-image:url(../images/pt_next.png);
+    margin-left: 1345px; 
+}
+.prev:hover{
+    background-image:url(../images/pt_pre_h.png);
+}
+
+.next:hover{
+    background-image:url(../images/pt_next_h.png);
+}
+.bannerCon .btnList {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 100%;
+    height: 12px;
+    text-align:center;
+    z-index: 2;
+    overflow: hidden;
+}
+.banner .l-font {
+    background: #000;
+    width: 320px;
+    height: 240px;
+    right: 0px;
+    top: -315px;
+    overflow: hidden;
+    opacity: 0;
+    line-height: 206px;
+}
+.content .bannerCenter {
+    width: 1280px;
+    margin: 0 auto;
+    position: relative;
+}
+.content .bannerCenter img {
+    position: absolute;
+}
+.banner p {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 70px;
+    color: #fff;
+    position: relative;
+}
+.banner ul li:hover a.desc p {
+    opacity: 0.75;
+    transition:all .5s ease-in 0s;
+}
+.banner .l-img {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    width: 100%;
+}
+/*风险保障*/
+.risk {
+    width: 100%;
+}
+.risk .riskCenter {
+    width: 1280px;
+    margin: 0 auto;
+    padding-bottom: 140px;
+}
+.risk .riskCenter .rTitle {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 20px;
+    padding-bottom: 110px;
+}
+.risk .riskCenter .riskLeft {
+    display: inline-block;
+    width: 640px;
+    color: #fff;
+    cursor: pointer;
+}
+.risk .riskCenter .riskLeft .rltop:hover {
+    background-size: 110%;
+}
+.risk .riskCenter .riskLeft .rldown:hover {
+    background-size: 110%;
+}
+.risk .riskCenter .riskRight:hover {
+    background-size: 110%;
+}
+.riskCenter .riskLeft .rltop {
+    width: 640px;
+    height: 370px;
+    background: url(../images/left.jpg) no-repeat;
+    background-size: 100%;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.riskCenter h1 {
+    transition:all .5s ease-in 0s;
+}
+.riskCenter span {
+    display: none;
+    transition:all .5s ease-in 0s;
+}
+.riskCenter .riskRight:hover span{
+    display: block;
+    transition:all .5s ease-in 0s;
+}
+.riskCenter .riskLeft .rldown:hover span{
+    display: block;
+    transition:all .5s ease-in 0s;
+}
+.riskCenter .riskLeft .rldown:hover h1 {
+    margin-left: 20%;
+    transition:all .5s ease-in 0s;
+}
+.riskCenter .riskLeft .rltop:hover span{
+    display: block;
+    transition:all .5s ease-in 0s;
+}
+.riskCenter .riskLeft .rltop:hover h1 {
+    margin-left: 30%;
+} 
+.riskCenter .riskRight:hover h1 {
+    margin-top: -225px;
+    transition:all .3s ease-in 0s;
+}
+.riskCenter .riskLeft .rldown {
+    width: 640px;
+    height: 370px;
+    background: url(../images/small-banner-hwcloud.jpg) no-repeat;
+    background-size: 100%;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.risk .riskCenter .riskRight {
+    display: inline-block;
+    width: 640px;
+    height: 740px;
+    float: left;
+    background: url(../images/right.jpg) no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+    color: #fff;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.risk .riskCenter .riskLeft h1 {
+    padding-top: 225px;
+    margin-left: 30px;
+}
+.risk .riskCenter .riskRight h1 {
+    padding-top: 595px;
+    margin-left: 30px;
+}
+.risk .riskCenter span {
+    width: 600px;
+    margin-left: 15px;
+    line-height: 29px;
+}
+.risk .riskCenter .riskLeft>div:hover {
+    display: block;
+    color: #fff;
+}
+/*.risk .riskCenter .riskRight:hover h1 {
+    margin-top: -261px;
+    transition:all .3s ease-in 0s;
+}*/
+.risk a {
+    color: #fff;
+}
+/*动画*/
+.bannerCenter .img1 {
+     animation: myfirst 3s linear 1s infinite alternate;
+}
+@keyframes myfirst
+    {
+        from {transform:translateY(150px)}
+        to {transform:translateY(0px)}
+    }
+.bannerCenter .img4 {
+     animation: myfirst1 3s linear 1s infinite alternate;
+}
+@keyframes myfirst1
+    {
+        from {transform:translateY(0px)}
+        to {transform:translateY(150px)}
+    }
+.bannerCenter .img5 {
+     animation: myfirst2 3s linear 1s infinite alternate;
+}
+@keyframes myfirst2
+    {
+        from {transform:translateY(150px)}
+        to {transform:translateY(0px)}
+    }
+.bannerCenter .img6 {
+     animation: myfirst3 3s linear 1s infinite alternate;
+}
+@keyframes myfirst3
+    {
+        from {transform:translateY(150px)}
+        to {transform:translateY(0px)}
+    }
+.bannerCenter .img7 {
+     animation: myfirst4 3s linear 1s infinite alternate;
+}
+@keyframes myfirst4
+    {
+        from {transform:translateY(150px)}
+        to {transform:translateY(0px)}
+    }
+.bannerCenter .img8 {
+     animation: myfirst5 3s linear 1s infinite alternate;
+}
+@keyframes myfirst5
+    {
+        from {transform:translateY(150px)}
+        to {transform:translateY(0px)}
+    }
